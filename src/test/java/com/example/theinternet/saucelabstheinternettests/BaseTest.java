@@ -6,22 +6,26 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class BaseTest {
 
     WebDriver driver;
 
     @BeforeTest
-    public void setupTest(){
+    public void setupTest() {
+
         WebDriverManager.chromedriver().setup();
     }
+
     @BeforeMethod
-    public void setup(){
-        driver=new ChromeDriver();
+    public void setup() {
+        driver = new ChromeDriver();
+
     }
 
     @AfterMethod
-    public  void teardown(){
-        if (driver!= null) {
+    public void teardown() {
+        if (driver != null) {
             driver.close();
         }
     }
