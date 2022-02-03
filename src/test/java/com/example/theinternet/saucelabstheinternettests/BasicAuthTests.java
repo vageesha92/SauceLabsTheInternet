@@ -1,6 +1,7 @@
 package com.example.theinternet.saucelabstheinternettests;
 
 import com.example.theinternet.browserutils.AuthDevTool;
+import com.example.theinternet.browserutils.AuthUsingAPI;
 import com.example.theinternet.page.BasicAuthPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,19 +17,30 @@ public class BasicAuthTests extends BaseTest {
     }
 
     @Test
-    public void messageTest() {
+    public void validLoginCredentialsInURLTest() {
         BasicAuthPage page = new BasicAuthPage(driver);
         page.navigateDirectlyTo();
         assertValidCredentials(page);
     }
 
     @Test
-    public void validLoginTest() {
+    public void validLoginCredentialsInHeaderTest() {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         AuthDevTool devtool = new AuthDevTool(driver);
         devtool.setAuthUserPassword("admin", "admin");
         devtool.devToolSetup();
+        BasicAuthPage page = new BasicAuthPage(driver);
+        page.navigateTo();
+        assertValidCredentials(page);
+    }
+
+    @Test
+    public void validLoginCredentialsSeleniumUserPassApiTest() {
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        AuthUsingAPI authenticator = new AuthUsingAPI();
+        authenticator.setupAuthentication(driver);
         BasicAuthPage page = new BasicAuthPage(driver);
         page.navigateTo();
         assertValidCredentials(page);
